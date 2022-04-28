@@ -27,10 +27,10 @@ int main (){
     char palabra4[30+1];
     printf("\n\nInserte la cadena de caracteres: ");
     scanf("%s", palabra4);
-    char sacarEsteCaracter[2];
-    printf("Ahora inserte el caracter que quiera eliminar: ");
-    scanf("%c", sacarEsteCaracter[0]);
-    //eliminarCaracter(palabra4, sacarEsteCaracter);
+    char sacarEsteCaracter = 'c';
+   // printf("Ahora inserte el caracter que quiera eliminar: ");
+   // scanf("%c", sacarEsteCaracter);
+    eliminarCaracter(palabra4, sacarEsteCaracter);
 
     char palabra5[30+1];
     printf("\n\nInserte la cadena de caracteres: ");
@@ -43,9 +43,9 @@ int main (){
     char palabra6[30+1];
     printf("\n\nInserte la cadena de caracteres: ");
     scanf("%s", palabra6);
-    char caracterAAgregar;
-    printf("Inserte el caracter que desea agregar: ");
-    scanf("%c", caracterAAgregar);
+    char caracterAAgregar = 'a';
+    // printf("Inserte el caracter que desea agregar: ");
+    // scanf("%c", caracterAAgregar);
     int posicion;
     printf("Inserte la posicion en la que desea agregarlo: ");
     scanf("%d", posicion);
@@ -91,7 +91,7 @@ eliminarCaracter (char cadena[], char caracterEliminado){
           i++;
         }
         
-        printf("%s", cadena[i]);
+        printf("%c", cadena[i]);
     }
 
     return 0;
@@ -100,11 +100,11 @@ eliminarCaracter (char cadena[], char caracterEliminado){
 concatenarCadenas (char cadena1[], char cadena2[]){
 
     for (int i=0; cadena1[i] != '\0'; i++){
-        printf("%s", cadena1[i]);
+        printf("%c", cadena1[i]);
     }
 
     for (int j=0; cadena2[j] != '\0'; j++){
-        printf("%s", cadena2[j]);        
+        printf("%c", cadena2[j]);        
     }
 
     return 0;
@@ -115,9 +115,9 @@ agregarCaracterEnPosicion (char cadena[], char caracterAgregado, int posicionCar
     for (int i=0; cadena[i] != '\0';){
 
         if (i == (posicionCarAgr --)){ //tomamos que la posición 1 sea la primera letra de la cadena, cuando i llegue a la posición deseada se imprime por pantalla el caracter agregado
-            printf("%s", caracterAgregado);
+            printf("%c", caracterAgregado);
         } else {
-            printf("%s", cadena[i]); //mientras la posición no sea la que deseamos, la cadena se imprime normalmente
+            printf("%c", cadena[i]); //mientras la posición no sea la que deseamos, la cadena se imprime normalmente
             i++;
         }
 
