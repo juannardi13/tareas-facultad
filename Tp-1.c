@@ -7,33 +7,35 @@ int eliminarCaracter (char[], char);
 int concatenarCadenas (char[], char[]);
 int agregarCaracterEnPosicion (char[], char, int);
 
+
 int main (){
 
     char palabra[30+1];
-    printf("Inserte la cadena de caracteres: ");
+    printf("Funcion longitud de la palabra. \nInserte la cadena de caracteres: ");
     scanf("%s", palabra);
     printf("\nLa longitud de la cadena es de: %d", longitudDeCadena(palabra));
 
     char palabra2[30+1];
-    printf("\n\nInserte la cadena de caracteres: ");
+    printf("\n\nFuncion cadena a entero.\nInserte la cadena de digitos: ");
     scanf("%s", palabra2);
-    convertirAEquivalenteNumerico(palabra2);
+    printf("el valor int es %d", stringToInt(palabra2));
 
     char palabra3[30+1];
-    printf("\n\nInserte la cadena de caracteres: ");
+    printf("\n\nFuncion convertir en mayusculas.\n Inserte la cadena de caracteres: ");
     scanf("%s", palabra3);
     convertirAMayuscula(palabra3);
 
     char palabra4[30+1];
-    printf("\n\nInserte la cadena de caracteres: ");
+    printf("\n\nFuncion quitar caracter.\n Inserte la cadena de caracteres: ");
     scanf("%s", palabra4);
-    char sacarEsteCaracter = 'c';
-   // printf("Ahora inserte el caracter que quiera eliminar: ");
-   // scanf("%c", sacarEsteCaracter);
+    char basura = getchar ();
+    char sacarEsteCaracter;
+    printf("Ahora inserte el caracter que quiera eliminar: ");
+    sacarEsteCaracter = getchar(); 
     eliminarCaracter(palabra4, sacarEsteCaracter);
 
     char palabra5[30+1];
-    printf("\n\nInserte la cadena de caracteres: ");
+printf("\n\nFuncion concatenar cadenas.\n Inserte la cadena de caracteres: ");
     scanf("%s", palabra5);
     printf("\nInserte la cadena a concatenar: ");
     char palabraAConcatenar[30+1];
@@ -41,14 +43,15 @@ int main (){
     concatenarCadenas(palabra5, palabraAConcatenar);
 
     char palabra6[30+1];
-    printf("\n\nInserte la cadena de caracteres: ");
+    printf("\n\nFuncion insertar caracter. \nInserte la cadena de caracteres: ");
     scanf("%s", palabra6);
-    char caracterAAgregar = 'a';
-    // printf("Inserte el caracter que desea agregar: ");
-    // scanf("%c", caracterAAgregar);
-    int posicion;
+    char basura2 = getchar();
+    char caracterAAgregar;
+    printf("Inserte el caracter que desea agregar: ");
+    caracterAAgregar = getchar();
     printf("Inserte la posicion en la que desea agregarlo: ");
-    scanf("%d", posicion);
+    int posicion;
+    scanf("%i", &posicion);
     agregarCaracterEnPosicion(palabra6, caracterAAgregar, posicion);
 
     return 0;
@@ -65,19 +68,43 @@ longitudDeCadena (char cadena[]){
     return contadorDeLetras;
 };
 
-convertirAEquivalenteNumerico (char cadena[]){
 
-    for(int i=0; cadena[i] != '\0'; i++){
+
+ int obtenerMultiplicador(int cantCaract){
+    int ret = 1;
+    for(int i = 1;i < cantCaract;i++){
+        ret *= 10;
+    }
+    return ret;
+}
+int charToInt(char numero){
+    return numero-48;
+}
+int stringToInt(char numero[]){
+    int ret = 0;
+    int multiplicador = obtenerMultiplicador(longitudDeCadena(numero));
+    for(int i = 0;i<longitudDeCadena(numero);i++){
+        ret += charToInt(numero[i])*multiplicador;
+        multiplicador /= 10;
+    }
+    return ret;
+}
+ 
+  /*  for(int i=0; cadena[i] != '\0'; i++){
         printf("%d ", cadena[i]); // si se usa %d en printf, nos estamos refiriendo a un valor numerico, por lo que si le pasamos un caracter, tomará su valor en la tabla ASCII
     }
 
     return 0;
-}
+}*/
 
 convertirAMayuscula (char cadena[]){
 
     for(int i=0; cadena[i] != '\0'; i++){
-        printf("%c", cadena[i]-32); // se le resta 32 porque esa es la distancia entre una letra minuscula y su mayuscula en la tabla ASCII
+        if (cadena[i]>=97 && cadena[i]<=122){
+            printf("%c", cadena[i]-32); // se le resta 32 porque esa es la distancia entre una letra minuscula y su mayuscula en la tabla ASCII
+        } else {
+            printf("%c", cadena[i]);
+        }
     }
 
     return 0;
@@ -89,9 +116,17 @@ eliminarCaracter (char cadena[], char caracterEliminado){
         
         if (cadena[i] == caracterEliminado){ //cuando llega a la posición del caracter eliminado, agrega 1 al indice "i", haciendo que evite mostrar por pantalla esa posición en la cadena
           i++;
+          if(cadena[i] == '\0'){
+              printf("%c", cadena[i]);
+              break;
+          }
+          }
+               
+        if (cadena[i]!='\0')
+        {
+             printf("%c", cadena[i]);
         }
-        
-        printf("%c", cadena[i]);
+       
     }
 
     return 0;
@@ -112,16 +147,29 @@ concatenarCadenas (char cadena1[], char cadena2[]){
 
 agregarCaracterEnPosicion (char cadena[], char caracterAgregado, int posicionCarAgr){
 
-    for (int i=0; cadena[i] != '\0';){
+char aux [longitudDeCadena(cadena)+1];
 
-        if (i == (posicionCarAgr --)){ //tomamos que la posición 1 sea la primera letra de la cadena, cuando i llegue a la posición deseada se imprime por pantalla el caracter agregado
-            printf("%c", caracterAgregado);
-        } else {
-            printf("%c", cadena[i]); //mientras la posición no sea la que deseamos, la cadena se imprime normalmente
-            i++;
-        }
+for(int i = 0; i < posicionCarAgr-1; i++){
 
-    }
+    aux [i] = cadena [i];
+   
 
-    return 0;
 }
+
+aux [posicionCarAgr-1] = caracterAgregado;
+
+for (int j = (posicionCarAgr-1); cadena[j] != '\0' ; j++){
+
+    aux[j+1] = cadena [j];
+    
+
+}
+for(int t = 0; aux[t] != '\0';t++){
+printf("%c", aux[t] );
+}
+
+return 0;
+
+}
+
+
