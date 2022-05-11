@@ -11,7 +11,7 @@ char* concatenarCadenas(char[], char[]);
 char* agregarCaracterEnPosicion(char[], char, int);
 
 
-int main (){/*
+int main (){
 
     char palabra[30+1];
     printf("Funcion longitud de la palabra. \nInserte la cadena de caracteres: ");
@@ -27,7 +27,7 @@ int main (){/*
     printf("\n\nFuncion convertir en mayusculas.\nInserte la cadena de caracteres: ");
     scanf("%s", palabra3);
     printf("%s", convertirAMayuscula(palabra3));
-*/
+
     char palabra4[30+1];
     printf("\n\nFuncion quitar caracter.\nInserte la cadena de caracteres: ");
     scanf("%s", palabra4);
@@ -36,7 +36,7 @@ int main (){/*
     printf("Ahora inserte el caracter que quiera eliminar: ");
     sacarEsteCaracter = getchar(); 
     printf("%s", eliminarCaracter(palabra4, sacarEsteCaracter));
-/*
+
     char palabra5[30+1];
     printf("\n\nFuncion concatenar cadenas.\nInserte la cadena de caracteres: ");
     scanf("%s", palabra5);
@@ -56,7 +56,7 @@ int main (){/*
     int posicion;
     scanf("%i", &posicion);
     printf("%s", agregarCaracterEnPosicion(palabra6, caracterAAgregar, posicion));
-*/
+
     return 0;
 }
 
