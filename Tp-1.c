@@ -1,14 +1,17 @@
 #include<stdio.h>
 
 int longitudDeCadena (char[]);
-int convertirAEquivalenteNumerico (char[]);
-int convertirAMayuscula (char[]);
-int eliminarCaracter (char[], char);
-int concatenarCadenas (char[], char[]);
-int agregarCaracterEnPosicion (char[], char, int);
+int obtenerMultiplicador(int);
+int charToInt(char);
+int stringToInt(char[]);
+int convertirAEquivalenteNumerico(char[]);
+char* convertirAMayuscula(char[]);
+char* eliminarCaracter(char[], char);
+char* concatenarCadenas(char[], char[]);
+char* agregarCaracterEnPosicion(char[], char, int);
 
 
-int main (){
+int main (){/*
 
     char palabra[30+1];
     printf("Funcion longitud de la palabra. \nInserte la cadena de caracteres: ");
@@ -21,29 +24,29 @@ int main (){
     printf("el valor int es %d", stringToInt(palabra2));
 
     char palabra3[30+1];
-    printf("\n\nFuncion convertir en mayusculas.\n Inserte la cadena de caracteres: ");
+    printf("\n\nFuncion convertir en mayusculas.\nInserte la cadena de caracteres: ");
     scanf("%s", palabra3);
-    convertirAMayuscula(palabra3);
-
+    printf("%s", convertirAMayuscula(palabra3));
+*/
     char palabra4[30+1];
-    printf("\n\nFuncion quitar caracter.\n Inserte la cadena de caracteres: ");
+    printf("\n\nFuncion quitar caracter.\nInserte la cadena de caracteres: ");
     scanf("%s", palabra4);
     char basura = getchar ();
     char sacarEsteCaracter;
     printf("Ahora inserte el caracter que quiera eliminar: ");
     sacarEsteCaracter = getchar(); 
-    eliminarCaracter(palabra4, sacarEsteCaracter);
-
+    printf("%s", eliminarCaracter(palabra4, sacarEsteCaracter));
+/*
     char palabra5[30+1];
-printf("\n\nFuncion concatenar cadenas.\n Inserte la cadena de caracteres: ");
+    printf("\n\nFuncion concatenar cadenas.\nInserte la cadena de caracteres: ");
     scanf("%s", palabra5);
     printf("\nInserte la cadena a concatenar: ");
     char palabraAConcatenar[30+1];
     scanf("%s", palabraAConcatenar);
-    concatenarCadenas(palabra5, palabraAConcatenar);
+    printf("%s", concatenarCadenas(palabra5, palabraAConcatenar));
 
     char palabra6[30+1];
-    printf("\n\nFuncion insertar caracter. \nInserte la cadena de caracteres: ");
+    printf("\n\nFuncion insertar caracter.\nInserte la cadena de caracteres: ");
     scanf("%s", palabra6);
     char basura2 = getchar();
     char caracterAAgregar;
@@ -52,14 +55,14 @@ printf("\n\nFuncion concatenar cadenas.\n Inserte la cadena de caracteres: ");
     printf("Inserte la posicion en la que desea agregarlo: ");
     int posicion;
     scanf("%i", &posicion);
-    agregarCaracterEnPosicion(palabra6, caracterAAgregar, posicion);
-
+    printf("%s", agregarCaracterEnPosicion(palabra6, caracterAAgregar, posicion));
+*/
     return 0;
 }
 
 longitudDeCadena (char cadena[]){
     int contadorDeLetras = 0;
-    int i; // i será un índice que recorrerá toda la cadena de caractéres hasta hallar aquel que sea \0
+    int i; 
 
     for(i=0; cadena[i] != '\0'; i++){
         contadorDeLetras++;
@@ -68,19 +71,19 @@ longitudDeCadena (char cadena[]){
     return contadorDeLetras;
 };
 
-
-
- int obtenerMultiplicador(int cantCaract){
+obtenerMultiplicador(int cantCaract){
     int ret = 1;
     for(int i = 1;i < cantCaract;i++){
         ret *= 10;
     }
     return ret;
 }
-int charToInt(char numero){
+
+charToInt(char numero){
     return numero-48;
 }
-int stringToInt(char numero[]){
+
+stringToInt(char numero[]){
     int ret = 0;
     int multiplicador = obtenerMultiplicador(longitudDeCadena(numero));
     for(int i = 0;i<longitudDeCadena(numero);i++){
@@ -89,87 +92,116 @@ int stringToInt(char numero[]){
     }
     return ret;
 }
- 
-  /*  for(int i=0; cadena[i] != '\0'; i++){
-        printf("%d ", cadena[i]); // si se usa %d en printf, nos estamos refiriendo a un valor numerico, por lo que si le pasamos un caracter, tomará su valor en la tabla ASCII
-    }
 
-    return 0;
-}*/
+char* convertirAMayuscula (char cadena[]){
 
-convertirAMayuscula (char cadena[]){
+    char aux[30];
+    int i;
 
-    for(int i=0; cadena[i] != '\0'; i++){
+    for(i=0; cadena[i] != '\0'; i++){
         if (cadena[i]>=97 && cadena[i]<=122){
-            printf("%c", cadena[i]-32); // se le resta 32 porque esa es la distancia entre una letra minuscula y su mayuscula en la tabla ASCII
+            aux[i] = (cadena[i]-32);
         } else {
-            printf("%c", cadena[i]);
-        }
+            aux[i] = cadena[i];
+        } 
+        
     }
-
-    return 0;
+    
+    for(int t=0; t < i; t++){
+        cadena[t] = aux[t];
+    }
+    
+    return cadena;
 }
 
-eliminarCaracter (char cadena[], char caracterEliminado){
+char* eliminarCaracter (char cadena[], char caracterEliminado){
 
-    for(int i=0; cadena[i] != '\0'; i++){
+    char aux[30];
+    int i=0;
+    int j=0;
+
+    for(i=0; cadena[i] != '\0'; i++){
         
-        if (cadena[i] == caracterEliminado){ //cuando llega a la posición del caracter eliminado, agrega 1 al indice "i", haciendo que evite mostrar por pantalla esa posición en la cadena
-          i++;
-          if(cadena[i] == '\0'){
-              printf("%c", cadena[i]);
-              break;
-          }
-          }
-               
-        if (cadena[i]!='\0')
-        {
-             printf("%c", cadena[i]);
+        if (cadena[i] == caracterEliminado){ 
+            continue;
+
+            if(cadena[i] == '\0'){
+                 aux[j] = cadena[i];
+                break;
+            }
+        }
+
+        if (cadena[i] != '\0'){
+             aux[j] = cadena[i];
+             j++;
         }
        
     }
 
-    return 0;
-}
+    for(int t=0; t < j; t++){
+        cadena[t] = aux[t];
 
-concatenarCadenas (char cadena1[], char cadena2[]){
-
-    for (int i=0; cadena1[i] != '\0'; i++){
-        printf("%c", cadena1[i]);
+        if((t+1) == j){
+            cadena[t+1] = '\0';
+        }
     }
 
-    for (int j=0; cadena2[j] != '\0'; j++){
-        printf("%c", cadena2[j]);        
+    return cadena;
+}
+
+char* concatenarCadenas (char cadena1[], char cadena2[]){
+
+    char aux[longitudDeCadena(cadena1) + longitudDeCadena(cadena2) + 1];
+    int i;
+
+    for (i=0; cadena1[i] != '\0'; i++){
+        aux[i] = cadena1[i];
     }
 
-    return 0;
+    for (int j=0; ; j++){
+        aux[i] = cadena2[j];
+        i++;  
+
+        if (cadena2[j] == '\0'){
+            aux[i] = '\0';
+            break;
+        }      
+    }
+
+    for(int t=0; t <= i; t++){
+        cadena1[t] = aux[t];
+    }
+
+    return cadena1;
 }
 
-agregarCaracterEnPosicion (char cadena[], char caracterAgregado, int posicionCarAgr){
+char* agregarCaracterEnPosicion (char cadena[], char caracterAgregado, int posicionCarAgr){
 
-char aux [longitudDeCadena(cadena)+1];
+    char aux [longitudDeCadena(cadena)+1];
+    int i;
 
-for(int i = 0; i < posicionCarAgr-1; i++){
+    for(i = 0; i < posicionCarAgr-1; i++){
+        aux [i] = cadena [i];
+    }   
 
-    aux [i] = cadena [i];
-   
+    aux [posicionCarAgr-1] = caracterAgregado;
 
+    for (i = (posicionCarAgr-1); cadena[i] != '\0' ; i++){
+        aux[i+1] = cadena [i];
+
+        if(cadena[i+1] == '\0'){
+            aux[i+2] = '\0';
+            break;
+        }
+    }
+
+    for(int j=0; j < longitudDeCadena(aux); j++){
+        cadena[j] = aux[j];
+
+        if(aux[j+1] == '\0'){
+            cadena[j+1] = '\0';
+        }
+    }
+
+    return cadena;
 }
-
-aux [posicionCarAgr-1] = caracterAgregado;
-
-for (int j = (posicionCarAgr-1); cadena[j] != '\0' ; j++){
-
-    aux[j+1] = cadena [j];
-    
-
-}
-for(int t = 0; aux[t] != '\0';t++){
-printf("%c", aux[t] );
-}
-
-return 0;
-
-}
-
-
