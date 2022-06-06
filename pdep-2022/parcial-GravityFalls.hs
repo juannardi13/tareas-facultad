@@ -126,3 +126,6 @@ cesar letraClave mensajeADescifrar = map (desencriptarLetra letraClave) mensajeA
 cesarConTodasLasLetras :: [Char] -> String -> String
 cesarConTodasLasLetras [] _ = []
 cesarConTodasLasLetras (x:xs) unasPalabras = cesar x unasPalabras ++ " " ++ cesarConTodasLasLetras xs unasPalabras
+
+vignere :: String -> String -> String
+vignere palabraClave mensajeOculto = undefined
