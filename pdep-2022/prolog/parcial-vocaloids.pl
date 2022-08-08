@@ -85,11 +85,20 @@ puntosFama(Cantante, Puntos) :-
     puntosDeRecitales(Cantante, PuntosRecitales),
     Puntos is CantidadCanciones * PuntosRecitales.
 
+
 puntosDeRecitales(Cantante, PuntosRecitales) :-
     puedeParticipar(Cantante, _),
     findall(PuntosFama, (puedeParticipar(Cantante, Recital), concierto(Recital, _, PuntosFama, _)), PuntosRecolectados),
-    sum_list(PuntajeRecolectado, PuntosRecitales).
+    sum_list(PuntosRecolectados, PuntosRecitales).
 
+conoce(megurineLuka, hatsuneMiku).
+conoce(megurineLuka, gumi).
+conoce(gumi, seeU).
+conoce(seeU, kaito).
 
+esElUnicoQueParticipa(Cantante, Concierto) :-
+    conoce(Cantante, _),
+    concierto(Concierto, _, _, _),
+    forall(conoce(Cantante, OtroCantante), not(puedeParticipar(OtroCantante, Concierto))).
 
 
