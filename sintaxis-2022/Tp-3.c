@@ -5,7 +5,7 @@
 void automataIdentificadores(char[]);
 void automataCaracteres(char[]);
 void automataOperadores(char[]);
-//void automataPalabrasReservadas(char[]);
+void automataPalabrasReservadas(char[]);
 void automataConstantes(char[]);
 void automataAsignacion(char[]);
 void automataComentarios(char[]);
@@ -30,7 +30,8 @@ int main(){
         printf("0. Salir del Programa\n\n");
         
         printf("Su respuesta: \n");
-        int respuesta = 6;
+        int respuesta;
+        scanf("%d", &respuesta);
 
         system("PAUSE");
 
@@ -66,12 +67,12 @@ int main(){
         }
 
         if(respuesta == 4){
-            //system("cls");
+            system("cls");
             char palabra3[50];
             printf("Ingrese la palabra: ");
             scanf("%s", palabra3);
-          //  automataPalabrasReservadas(palabra3);
-            //system("cls");
+            automataPalabrasReservadas(palabra3);
+            system("cls");
         }
 
         if(respuesta == 5){
@@ -177,17 +178,17 @@ void automataCaracteres(char palabra[]){
             break;
         }
 
-        if(palabra[contador] == ','){
+        if(palabra[contador] == ',' && contador == 0 ){
             actual = final;
             continuar = false;
             break;
         }
 
-        if(palabra[contador] == '.'){
+        if(palabra[contador] == '.' && contador == 0 ){
             actual = noFinal1;
         }
 
-        if(palabra[contador] == '-' && actual == noFinal1){
+        if(palabra[contador] == '-' && actual == noFinal1 ){
             actual = final1;
             continuar = false;
             break;
@@ -251,9 +252,145 @@ void automataOperadores(char palabra[]){
     system("PAUSE");
 }
 
-//void automataPalabraReservada(char palabra[]){
-   
-//}
+void automataPalabrasReservadas(char palabra[]){
+    int inicial = 0;
+    int noFinal1 = 1;
+    int noFinal2 = 2;
+    int noFinal3 = 3;
+    int noFinal4 = 4;
+    int noFinal5 = 5;
+    int noFinal6 = 6;
+    int noFinal7 = 7;
+    int noFinal8 = 8;
+    int noFinal9 = 9;
+    int noFinal10 = 10;
+    int noFinal11 = 11;
+    int noFinal12 = 12;
+    int noFinal13 = 13;
+    int noFinal14 = 14;
+    int noFinal15 = 15;
+    int noFinal16 = 16;
+    int noFinal18 = 18;
+    int noFinal20 = 20;
+    int noFinal21 = 21;
+    int noFinal22 = 22;
+    int noFinal24 = 24;
+
+    int final17 = 17;    
+    int final19 = 19;
+    int final23 = 23;
+    int final25 = 25;
+
+    int rechazo = 26;
+    int actual = inicial;
+
+    int contador = 0;
+    bool continuar = true;
+
+    while(continuar){
+
+        if(palabra[contador] == '\0'){
+            continuar = false;
+            break;
+        }
+
+        if((actual == final17 || actual == final19 || actual == final23 || actual == final25) && palabra[contador] != '\0'){
+            continuar = false;
+            actual = rechazo;
+            break;
+        }
+
+
+        if(actual == inicial){
+            if(palabra[contador] == 's')
+            actual = noFinal1;
+
+            if(palabra[contador] == 'h')
+            actual = noFinal2;
+
+            if(palabra[contador] == 'p')
+            actual = noFinal3;
+
+            if(palabra[contador] == 'c')
+            actual = noFinal4;
+        }
+
+        if(actual == noFinal4){
+            if(palabra[contador] == 'a')
+            actual = noFinal8;
+
+            if(palabra[contador] == 'o')
+            actual = noFinal9;
+        }
+
+        if(actual == noFinal8 && palabra[contador] == 'c')
+        actual = noFinal13;
+
+        if(actual == noFinal13 && palabra[contador] == 'k')
+        actual = noFinal18;
+
+        if(actual == noFinal18 && palabra[contador] == 'l')
+        actual = noFinal21;
+
+        if(actual == noFinal21 && palabra[contador] == 'e')
+        actual = final23;
+
+        if(actual == noFinal9 && palabra[contador] == 'r')
+        actual = noFinal14;
+
+        if(actual == noFinal14 && palabra[contador] == 'n')
+        actual = final19;
+
+        if(actual == noFinal3 && palabra[contador] == 'o')
+        actual = noFinal7;
+
+        if(actual == noFinal7 && palabra[contador] == 'l')
+        actual = noFinal12;
+
+        if(actual == noFinal12 && palabra[contador] == 'l')
+        actual = final17;
+
+        if(actual == noFinal2 && palabra[contador] == 'a')
+        actual = noFinal6;
+
+        if(actual == noFinal6 && palabra[contador] == 't')
+        actual = noFinal11;
+
+        if(actual == noFinal11 && palabra[contador] == 'c')
+        actual = noFinal16;
+
+        if(actual == noFinal1 && palabra[contador] == 't')
+        actual = noFinal5;
+
+        if(actual == noFinal5 && palabra[contador] == 'a')
+        actual = noFinal10;
+
+        if(actual == noFinal10 && palabra[contador] == 'r')
+        actual = noFinal15;
+
+        if((actual == noFinal15 && palabra[contador] == 't') || (actual == noFinal16 && palabra[contador] == 'h'))
+        actual = noFinal20;
+
+        if(actual == noFinal20 && palabra[contador] == 'E')
+        actual = noFinal22;
+
+        if(actual == noFinal22 && palabra[contador] == 'g')
+        actual = noFinal24;
+
+        if(actual == noFinal24 && palabra[contador] == 'g')
+        actual = final25;
+
+        contador++;
+    }
+
+    if(actual == final17 || actual == final19 || actual == final23 || actual == final25){
+        printf("\nAcepta la palabra.\n");
+    }else{
+        printf("\nNo acepta la palabra.\n");
+    }
+}
+
+
 
 void automataConstantes(char palabra[]){
     int inicial = 0;
