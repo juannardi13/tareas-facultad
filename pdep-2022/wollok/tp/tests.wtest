@@ -1,0 +1,159 @@
+import hormigas.*
+import hormiguero.*
+import alimentos.*
+
+const hormiga = new Hormiga(cantidadDeAlimento = 4, ubicacion = hormiguero, distanciaRecorrida = 0, puntosRecorridos = [], estado = "Normal", distanciaDesdeDescanso = 0)
+const hormiga1 = new Hormiga(cantidadDeAlimento = 0, ubicacion = hormiguero, distanciaRecorrida = 0, puntosRecorridos = [], estado = "Normal", distanciaDesdeDescanso = 0)
+const hormiga2 = new Hormiga(cantidadDeAlimento = 5, ubicacion = hormiguero, distanciaRecorrida = 0, puntosRecorridos = [], estado = "Normal", distanciaDesdeDescanso = 0)
+const hormiga3 = new Hormiga(cantidadDeAlimento = 9, ubicacion = hormiguero, distanciaRecorrida = 0, puntosRecorridos = [], estado = "Normal", distanciaDesdeDescanso = 0) 
+
+const manzana = new Alimento(posicion = 3, masa = 6)
+const banana = new Alimento(posicion = 4, masa = 10)
+const frutilla = new Alimento(posicion = 2, masa = 3)
+	
+const hormigas = #{hormiga1, hormiga2, hormiga3}
+
+describe "tests de hormigas" {
+	
+	test "hormiga1 no está al límite"{
+	assert.notThat(hormiga1.estaAlLimite())
+	}
+	
+	test "hormiga2 no está al límite" {
+	assert.notThat(hormiga2.estaAlLimite())
+	}
+	
+	test "hormiga3 está al límite"{
+	assert.that(hormiga3.estaAlLimite())
+	}
+	
+	test "puntos por los que paso una hormiga"{
+		hormiga.viajar(hormiguero)
+		hormiga.viajar(manzana)
+		hormiga.viajar(banana)
+		assert.equals(hormiga.puntosRecorridos(), [hormiguero, manzana, banana])
+	}
+	
+	test "distancia que recorrio una hormiga"{
+		hormiga.viajar(hormiguero)
+		hormiga.viajar(manzana)
+		hormiga.viajar(banana)
+		assert.equals(hormiga.distanciaRecorrida(), 7)
+	}
+	
+
+}
+
+describe "tests de Hormiguero" {
+	
+	test "un hormiguero vacio no tiene hormigas"{
+		assert.equals(hormiguero.cantidadDeHormigas(), 0)
+	}
+	
+	test "un hormiguero no vacio tiene hormigas"{
+		hormiguero.agregarHormiga(hormiga)
+		hormiguero.agregarHormiga(hormiga1)
+		hormiguero.agregarHormiga(hormiga2)
+		hormiguero.agregarHormiga(hormiga3)
+		assert.equals(hormiguero.cantidadDeHormigas(), 4)
+	}
+	
+	
+	test "las hormigas entregan el alimento"{
+		hormiguero.agregarHormiga(hormiga)
+		hormiguero.agregarHormiga(hormiga1)
+		hormiguero.agregarHormiga(hormiga2)
+		hormiguero.agregarHormiga(hormiga3)
+		assert.equals(hormiguero.deposito(), 0)
+		hormiguero.pedirAlimento()
+		assert.that(hormiguero.deposito() > 0)
+	}
+	
+	test "la cantidad de alimento es lo del deposito mas el alimento en transporte" {
+		hormiguero.agregarHormiga(hormiga)
+		hormiguero.agregarHormiga(hormiga1)
+		hormiguero.agregarHormiga(hormiga2)
+		hormiguero.agregarHormiga(hormiga3)
+		assert.equals(hormiguero.cantidadDeAlimentoTotal(), hormiguero.deposito() + hormiguero.alimentoEnTransporte())
+	}
+	
+	test "la cantidad de alimento en transito es la suma de lo que llevan las hormigas" {
+		hormiguero.agregarHormiga(hormiga)
+		hormiguero.agregarHormiga(hormiga1)
+		hormiguero.agregarHormiga(hormiga2)
+		hormiguero.agregarHormiga(hormiga3)
+		assert.equals(hormiguero.alimentoEnTransporte(), 18)
+	}
+	
+	test "la cantidad de alimento en el deposito" {
+		assert.equals(hormiguero.deposito(), 0)
+	}
+	
+	test "la distancia recorrida de todas sus hormigas" {
+		hormiguero.agregarHormiga(hormiga)
+		hormiguero.agregarHormiga(hormiga1)
+		hormiguero.agregarHormiga(hormiga2)
+		hormiguero.agregarHormiga(hormiga3)
+		assert.equals(hormiguero.distanciaRecorridaHormigas(), 0)
+	}
+}
+
+describe "tests de los alimentos" {
+	
+	test "extraer toda la masa de un alimento"{
+		assert.equals(manzana.masa(), 6)
+		manzana.extraerAlimento(manzana.masa())
+		assert.equals(manzana.masa(), 0)
+	}
+	
+	test "extraer de un alimento una hormiga con 5mg de alimento"{
+		assert.equals(hormiga2.cantidadDeAlimento(), 5)
+		hormiga2.recolectar(banana)
+		assert.equals(hormiga2.cantidadDeAlimento(), 10)
+		assert.equals(banana.masa(), 4)
+	}
+}
+
+describe "tests de cansancio" {
+
+	test "una hormiga que recorre diez metros no sigue recorriendo" {
+		assert.equals(hormiga.distanciaRecorrida(), 0)
+		hormiga.viajar(banana)
+		hormiga.viajar(manzana)
+		hormiga.viajar(frutilla)
+		hormiga.viajar(banana)
+		assert.equals(hormiga.distanciaRecorrida(), 13)
+		hormiga.viajar(frutilla)
+		assert.equals(hormiga.distanciaRecorrida(), 13)
+	}
+	
+	test "una hormiga cansada no extrae alimento" {
+		assert.equals(hormiga.cantidadDeAlimento(), 4)
+		hormiga.viajar(banana)
+		hormiga.viajar(manzana)
+		hormiga.viajar(frutilla)
+		hormiga.viajar(banana)
+		assert.equals(hormiga.cantidadDeAlimento(), 4)
+		hormiga.recolectar(frutilla)
+		assert.equals(hormiga.cantidadDeAlimento(), 4)
+	}
+	
+	test "descansar a una hormiga le permite extraer alimento" {
+		assert.equals(hormiga.cantidadDeAlimento(), 4)
+		hormiga.viajar(banana)
+		hormiga.viajar(manzana)
+		hormiga.viajar(frutilla)
+		hormiga.viajar(banana)
+		hormiga.descansar()
+		hormiga.recolectar(frutilla)
+		assert.that(hormiga.cantidadDeAlimento() > 4)
+	}
+	
+	test "una hormiga descansada puede recolectar mas del limite" {
+		assert.that(hormiga.cantidadDisponible() < 10)
+		hormiga.descansar()
+		hormiga.recolectar(banana)
+		assert.that(hormiga.cantidadDeAlimento() > 10)
+	}
+	
+}
