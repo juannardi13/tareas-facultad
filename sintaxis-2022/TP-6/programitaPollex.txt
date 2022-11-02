@@ -1,0 +1,6 @@
+startEgg
+
+poll corn num => 7.-
+cackle (num).-
+
+hatchEgg
