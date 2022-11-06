@@ -62,7 +62,9 @@ class Usuario {
 	}
 	
 	method actualizarNivel() {
-		nivel.actualizaNivel(self)
+		if(nivel.puedeSubirDeNivel(self)) {
+			self.nivel(nivel.proximoNivel())
+		}
 	}
 	
 	method puntos() {
