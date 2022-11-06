@@ -62,17 +62,15 @@ class Usuario {
 	}
 	
 	method actualizarNivel() {
-		if(puntos < plata.puntosNecesarios()) {
-			nivel = bronce
-		}
-		
-		if(plata.puntosNecesarios() < puntos && puntos < oro.puntosNecesarios()) {
-			nivel = plata
-		}
-		
-		if(oro.puntosNecesarios() < puntos) {
-			nivel = oro
-		}
+		nivel.actualizaNivel(self)
+	}
+	
+	method puntos() {
+		return puntos
+	}
+	
+	method nivel(unNivel) {
+		nivel = unNivel
 	}
 }
 
