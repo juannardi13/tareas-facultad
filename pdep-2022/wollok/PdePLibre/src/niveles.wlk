@@ -11,7 +11,7 @@ class Nivel {
 	
 	method puedeAgregarProducto(unUsuario)
 	method puntosNecesarios()
-	method actualizarNivel(unUsuario)
+	method proximoNivel()
 	method puedeSubirDeNivel(unUsuario)
 }
 
@@ -32,12 +32,8 @@ object bronce inherits NivelBajo {
 		return 0
 	}
 	
-	override method actualizarNivel(unUsuario) {
-		if(self.puedeSubirDeNivel(unUsuario)) {
-			unUsuario.nivel(plata)
-		} else {
-			unUsuario.nivel(self)
-		}
+	override method proximoNivel() {
+		return plata
 	}
 	
 	override method puedeSubirDeNivel(unUsuario) {
@@ -54,10 +50,8 @@ object plata inherits NivelBajo {
 		return 5000
 	}
 	
-	override method actualizarNivel(unUsuario) {
-		if(self.puedeSubirNivel(unUsuario)) {
-			unUsuario.nivel(oro)
-		}
+	override method proximoNivel() {
+		return oro
 	}
 	
 	override method puedeSubirNivel(unUsuario) {
@@ -74,7 +68,11 @@ object oro inherits Nivel {
 		return 15000
 	}
 	
-	override method actualizarNivel(unUsuario) {
-		unUsuario.nivel(oro)
+	override method siguienteNivel() {
+		return oro
+	}
+	
+	override method puedeSubirNivel(unUsuario) {
+		return false
 	}
 }
