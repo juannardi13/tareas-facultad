@@ -1,8 +1,10 @@
 package utn.dds.tendencias;
 
+import lombok.Getter;
 import utn.dds.catalogo.Cancion;
 import utn.dds.helpers.Icono;
 
+@Getter
 public class EnAuge extends Tendencia {
     public int cantDislikesInicial;
     public int cantReproduccionesInicial;

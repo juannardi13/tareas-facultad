@@ -1,8 +1,10 @@
 package utn.dds.tendencias;
 
+import lombok.Getter;
 import utn.dds.catalogo.Cancion;
 import utn.dds.helpers.Icono;
 
+@Getter
 public class Normal extends Tendencia {
     private int cantMaxReproduccionesNormal = 1000;
     private int cantReproduccionesInicial;
